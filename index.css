@@ -1,5 +1,41 @@
-html, body {
+html,
+body {
     margin: 0;
     padding: 0;
 }
 
+img {
+    width: 25%;
+    border: ;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+input {
+    color: #432000;
+    background-color: #DCE1EB;
+    font-family: 'Rubik', sans-serif;
+    font-size: 20px;
+    border-style: none;
+    border-radius: 10px;
+    height: 3rem;
+    width: 16rem;
+    margin: 1rem;
+    text-align: center;
+}
+
+button {
+    color: #FDFDFD;
+    background-color: #AC485A;
+    font-family: 'Rubik', sans-serif;
+    font-size: 20px;
+    border-style: none;
+    border-radius: 10px;
+    height: 3rem;
+    width: 16rem;
+    padding: 10px;
+}
