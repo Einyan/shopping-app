@@ -13,6 +13,13 @@ const inputFieldEl = document.getElementById("input-field")
 const addButtonEl = document.getElementById("add-button")
 const shoppingListEl = document.getElementById("shopping-list")
 
+// inputField.addEventListener('keypress', function (e) {
+//     if (e.key === 'Enter') {
+//         addButtonEl.click();
+//     }
+// });
+
+
 addButtonEl.addEventListener("click", function () {
     let inputValue = inputFieldEl.value
     // console.log('button clicked!')
@@ -35,9 +42,6 @@ onValue(shoppingListInDB, function (snapshot) {
     } else {
         shoppingListEl.innerHTML = "Co chcesz dostać?"
     }
-
-
-
 })
 
 function clearInputFieldEl() {
