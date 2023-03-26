@@ -40,7 +40,7 @@ onValue(shoppingListInDB, function (snapshot) {
             appendItemToShoppingListEl(currentItem)
         }
     } else {
-        shoppingListEl.innerHTML = "Co chcesz dostać?"
+        shoppingListEl.innerHTML = "Need anything?"
     }
 })
 
