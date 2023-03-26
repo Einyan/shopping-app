@@ -4,25 +4,44 @@ import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com
 const appSettings = {
     databaseURL: "https://my-shopping-app-af3ca-default-rtdb.europe-west1.firebasedatabase.app/"
 }
-
+// Connect to DB
 const app = initializeApp(appSettings)
 const database = getDatabase(app)
 const shoppingListInDB = ref(database, "shoppingList")
 
+// Javascript handles 
 const inputFieldEl = document.getElementById("input-field")
 const addButtonEl = document.getElementById("add-button")
 const shoppingListEl = document.getElementById("shopping-list")
 
-// inputField.addEventListener('keypress', function (e) {
-//     if (e.key === 'Enter') {
-//         addButtonEl.click();
-//     }
-// });
+let localCache = [];
+inputFieldEl.addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        addButtonEl.click();
+    }
+});
 
 
 addButtonEl.addEventListener("click", function () {
-    let inputValue = inputFieldEl.value
+    let inputValueRaw = inputFieldEl.value;
+
     // console.log('button clicked!')
+    if (inputValueRaw[0] === " ") {
+        return
+    }
+    let inputValue = inputValueRaw.trim();
+    if (inputValue === "") {
+        return
+    }
+
+    //iterate over local cache to see if it already exists
+    for (let i = 0; i < localCache.length; i++) {
+        let currentItem = localCache[i]
+        if (inputValue === currentItem) {
+            return;
+        }
+    }
     push(shoppingListInDB, inputValue)
     clearInputFieldEl()
     // appendItemToShoppingListEl(inputValue)
@@ -33,12 +52,15 @@ onValue(shoppingListInDB, function (snapshot) {
     if (snapshot.exists()) {
         let itemsArray = Object.entries(snapshot.val())
         clearShoppingListEl()
+        localCache = []
         for (let i = 0; i < itemsArray.length; i++) {
             let currentItem = itemsArray[i]
             let currentItemID = currentItem[0]
             let currentItemValue = currentItem[1]
+            localCache.push(currentItemValue);
             appendItemToShoppingListEl(currentItem)
         }
+        console.log(localCache)
     } else {
         shoppingListEl.innerHTML = "Need anything?"
     }
@@ -54,7 +76,7 @@ function appendItemToShoppingListEl(item) {
     let newEl = document.createElement('li')
     newEl.textContent = itemValue
 
-    newEl.addEventListener('click', function () {
+    newEl.addEventListener('click', () => {
         let locationOfItemInDB = ref(database, `shoppingList/${itemID}`)
         remove(locationOfItemInDB)
     })
