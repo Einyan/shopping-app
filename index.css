@@ -83,3 +83,12 @@ ul li:hover {
     background-color: #FCC5C0;
     cursor: pointer;
 }
+
+#shopping-list {
+    font-size: 20px;
+    font-style: italic;
+}
+
+.listItem {
+    font-style: normal;
+}

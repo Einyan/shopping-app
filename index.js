@@ -36,11 +36,15 @@ addButtonEl.addEventListener("click", function () {
     }
 
     //iterate over local cache to see if it already exists
-    for (let i = 0; i < localCache.length; i++) {
-        let currentItem = localCache[i]
-        if (inputValue === currentItem) {
-            return;
-        }
+    // for (let i = 0; i < localCache.length; i++) {
+    //     let currentItem = localCache[i]
+    //     if (inputValue === currentItem) {
+    //         return;
+    //     }
+    // }
+
+    if (localCache.includes(inputValue)) {
+        return;
     }
     push(shoppingListInDB, inputValue)
     clearInputFieldEl()
@@ -75,6 +79,7 @@ function appendItemToShoppingListEl(item) {
     let itemValue = item[1]
     let newEl = document.createElement('li')
     newEl.textContent = itemValue
+    newEl.classList = ["listItem"]
 
     newEl.addEventListener('click', () => {
         let locationOfItemInDB = ref(database, `shoppingList/${itemID}`)
